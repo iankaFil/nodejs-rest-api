@@ -4,6 +4,7 @@ mongoose.Promise = global.Promise;
 
 require('dotenv').config();
 
+const BASE_URL = process.env.BASE_URL || 'http://localhost';
 const PORT = process.env.PORT || 3000;
 const uriDb = process.env.DB_HOST;
 
@@ -18,7 +19,7 @@ const connection = mongoose
 connection
   .then(() => {
     app.listen(PORT, function () {
-      const url = `http://localhost:${PORT}`;
+      const url = `${BASE_URL}:${PORT}`;
       console.log(`Server running. Use our API on ${url}`);
     });
   })

@@ -1,6 +1,6 @@
 const { Schema, model } = require('mongoose');
 
-const handleMongooseError = require('../helpers/handleMongooseError');
+const { handleMongooseError } = require('../helpers/');
 
 const emailRegexp = require('../utils/regexp/emailRegexp');
 
@@ -27,6 +27,14 @@ const userSchema = new Schema(
     },
     avatarURL: {
       type: String,
+    },
+    verify: {
+      type: Boolean,
+      default: false,
+    },
+    verificationToken: {
+      type: String,
+      required: [true, 'Verify token is required'],
     },
   },
   { versionKey: false }

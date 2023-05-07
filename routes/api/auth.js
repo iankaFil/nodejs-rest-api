@@ -6,19 +6,23 @@ const {
     registerSchema,
     loginSchema,
     updateSubscriptionSchema,
+    emailSchema,
 } = require('../../schemas/users');
 const { users: ctrl } = require('../../controllers');
 const authenticate = require('../../middlewares/authenticate');
 
 const router = express.Router();
 
+router.post('/register', validation.validate(registerSchema), ctrl.register);
+
+router.get('/verify/:verificationToken', ctrl.verifyEmail);
 router.post(
-    '/register',
-    validation.registerValid(registerSchema),
-    ctrl.register
+    '/verify',
+    validation.validate(emailSchema),
+    ctrl.resendVerifyEmail
 );
 
-router.post('/login', validation.loginValid(loginSchema), ctrl.login);
+router.post('/login', validation.validate(loginSchema), ctrl.login);
 
 router.post('/logout', authenticate, ctrl.logout);
 
@@ -27,7 +31,7 @@ router.get('/current', authenticate, ctrl.getCurrent);
 router.patch(
     '/',
     authenticate,
-    validation.updateSubscriptionValid(updateSubscriptionSchema),
+    validation.validate(updateSubscriptionSchema),
     ctrl.updateSubscription
 );
 
