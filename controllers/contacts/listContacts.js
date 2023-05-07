@@ -3,10 +3,9 @@ const Contact = require('../../models/contact');
 const listContacts = async (req, res, next) => {
   try {
     const { _id: owner } = req.user;
-    let reqQuery = {};
-    if (!('favorite' in req.query)) {
-      reqQuery = { owner };
-    } else {
+    let reqQuery = { owner };
+
+    if ('favorite' in req.query) {
       const { favorite } = req.query;
       reqQuery = { owner, favorite };
     }
