@@ -2,16 +2,16 @@ const Joi = require('joi');
 
 const createContactSchema = Joi.object({
   name: Joi.string().required().messages({
-    "any.required": "missing required name field",
+    'any.required': 'missing required name field',
   }),
   email: Joi.string().email().required().messages({
-    "any.required": "missing required email field",
+    'any.required': 'missing required email field',
   }),
   phone: Joi.string()
     .pattern(/^\+?[0-9 ()-]{3,}$/)
     .required()
     .messages({
-      "any.required": "missing required phone field",
+      'any.required': 'missing required phone field',
     }),
 });
 
@@ -24,7 +24,7 @@ const updateContactSchema = Joi.object()
   .min(1)
   .required()
   .messages({
-    "object.min": "missing fields",
+    'object.min': 'missing fields',
   });
 
 module.exports = {
