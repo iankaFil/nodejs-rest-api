@@ -1,4 +1,4 @@
-const addValid = (schema) => {
+const addValid = schema => {
   return (req, res, next) => {
     const { error } = schema.validate(req.body);
     if (error) {
@@ -10,7 +10,7 @@ const addValid = (schema) => {
   };
 };
 
-const updateValid = (schema) => {
+const updateValid = schema => {
   return (req, res, next) => {
     const { error } = schema.validate(req.body);
     if (error) {
@@ -22,4 +22,59 @@ const updateValid = (schema) => {
   };
 };
 
-module.exports = { addValid, updateValid };
+const updateFavValid = schema => {
+  return (req, res, next) => {
+    const { error } = schema.validate(req.body);
+    if (error) {
+      return res.status(400).json({
+        message: `missing field favorite`,
+      });
+    }
+    next();
+  };
+};
+
+const registerValid = schema => {
+  return (req, res, next) => {
+    const { error } = schema.validate(req.body);
+    if (error) {
+      return res.status(400).json({
+        message: error.message,
+      });
+    }
+    next();
+  };
+};
+
+const loginValid = schema => {
+  return (req, res, next) => {
+    const { error } = schema.validate(req.body);
+    if (error) {
+      return res.status(400).json({
+        message: error.message,
+      });
+    }
+    next();
+  };
+};
+
+const updateSubscriptionValid = schema => {
+  return (req, res, next) => {
+    const { error } = schema.validate(req.body);
+    if (error) {
+      return res.status(400).json({
+        message: error.message,
+      });
+    }
+    next();
+  };
+};
+
+module.exports = {
+  addValid,
+  updateValid,
+  updateFavValid,
+  registerValid,
+  loginValid,
+  updateSubscriptionValid,
+};
