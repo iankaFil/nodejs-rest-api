@@ -38,7 +38,7 @@ const updateContact = async (contactId, body) => {
 const updateStatusContact = async (contactId, body) => {
   const updatedContact = await Contact.findByIdAndUpdate(contactId, { favorite: body.favorite }, { new: true });
 
-  return { contact: updatedContact, status: 200 };
+  return updatedContact;
 };
 
 module.exports = {

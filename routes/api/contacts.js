@@ -1,7 +1,7 @@
 const express = require('express');
 const contacts = require('../../models/contacts');
 
-const { createContactSchema, updateContactSchema } = require('../../utils/validation/contactsValidationSchemas');
+const { createContactSchema, updateContactSchema, favoriteContactSchema } = require('../../utils/validation/contactsValidationSchemas');
 
 const router = express.Router();
 
@@ -68,8 +68,9 @@ router.put('/:contactId', async (req, res, next) => {
 router.patch('/:contactId/favorite', async (req, res) => {
     const { contactId } = req.params;
     const { favorite } = req.body;
+    const { error } = favoriteContactSchema.validate(req.body);
 
-    if (!favorite) {
+    if (error) {
         return res.status(400).json({ message: 'missing field favorite' });
     }
 

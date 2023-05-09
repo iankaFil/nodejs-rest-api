@@ -27,7 +27,18 @@ const updateContactSchema = Joi.object()
     'object.min': 'missing fields',
   });
 
+const favoriteContactSchema = Joi.object()
+  .keys({
+    favorite: Joi.boolean(),
+  })
+  .min(1)
+  .required()
+  .messages({
+    'object.min': 'missing fields 404',
+  });
+
 module.exports = {
   createContactSchema,
   updateContactSchema,
+  favoriteContactSchema,
 };
